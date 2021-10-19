@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="PersonalizerMobileDemo.Views.UserView"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:PersonalizerMobileDemo.ViewModels">
+
+    <ContentPage.BindingContext>
+        <vm:UserViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout Margin="10" Spacing="10">
+            <Picker
+                Title="What's the current time of day?"
+                ItemsSource="{Binding Times}"
+                SelectedItem="{Binding User.TimeOfDay}"
+                TitleColor="Blue" />
+
+            <Picker
+                Title="What's your taste?"
+                ItemsSource="{Binding Tastes}"
+                SelectedItem="{Binding User.Taste}"
+                TitleColor="Blue" />
+
+            <Button
+                BackgroundColor="Green"
+                Command="{Binding GetRecommendationCommand}"
+                CornerRadius="20"
+                Text="I'm hungry!"
+                TextColor="White" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"/>
+
+            <Label
+                FontAttributes="Bold"
+                FontSize="Medium"
+                Text="{Binding Recommendation, StringFormat='The model recommends you... {0}'}"
+                TextColor="Orange" />
+
+            <StackLayout RadioButtonGroup.SelectedValue="{Binding UserLike}">
+                <Label Text="Did you like it?" />
+                <RadioButton Content="Yes" Value="True" />
+                <RadioButton Content="No" Value="False" />
+            </StackLayout>
+
+            <Button
+                BackgroundColor="Green"
+                Command="{Binding GiveFeedbackCommand}"
+                CornerRadius="20"
+                Text="Send Feedback"
+                TextColor="White" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
